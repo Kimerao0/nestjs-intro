@@ -1,0 +1,7 @@
+http://localhost:3000
+
+### Get the tasks
+GET http://localhost:3000/tasks
+
+### Get a task by ID
+GET http://localhost:3000/tasks/1
