@@ -15,6 +15,6 @@ Content-Type: {{contentType}}
 
 {
   "title": "New Task",
-  "description": "Description of the new task",
+  "description": "This is a new task created via API",
   "status": "OPEN"
 }
