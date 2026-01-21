@@ -1,7 +1,20 @@
-http://localhost:3000
+### Variables
+@baseUrl = http://localhost:3000
+@contentType= application/json 
+
 
 ### Get the tasks
-GET http://localhost:3000/tasks
+GET {{baseUrl}}/tasks
 
 ### Get a task by ID
-GET http://localhost:3000/tasks/1
+GET {{baseUrl}}/tasks/13
+
+### Create a new task
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "New Task",
+  "description": "Description of the new task",
+  "status": "OPEN"
+}
