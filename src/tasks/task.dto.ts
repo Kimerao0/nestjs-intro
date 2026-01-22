@@ -1,5 +1,6 @@
 import { TaskStatus } from 'src/tasks/task.model';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -10,13 +11,12 @@ export class CreateTaskDto {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
   @IsEnum(TaskStatus)
   status: TaskStatus;
 }
 
 export class UpdateStatusDto {
-  @IsNotEmpty()
   @IsEnum(TaskStatus)
   status: TaskStatus;
 }
+export class UpdateTaskDto extends PartialType(CreateTaskDto) {}

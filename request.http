@@ -7,22 +7,34 @@
 GET {{baseUrl}}/tasks
 
 ### Get a task by ID
-GET {{baseUrl}}/tasks/11cae179-7eca-42ee-a546-702e83a28d32
-
+GET {{baseUrl}}/tasks/29c9bedc-58e4-43fa-b435-76f5faa22b6e
 ### Create a new task
 POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-  "title": "New Task",
+  "title": "New Task N",
   "description": "This is a new task created via API",
   "status": "OPEN"
 }
 
 ### Update task status
-Patch {{baseUrl}}/tasks/11cae179-7eca-42ee-a546-702e83a28d32/status
+PATCH  {{baseUrl}}/tasks/11cae179-7eca-42ee-a546-702e83a28d32/status
 Content-Type: {{contentType}}
 
 {
   "status": "OPEN"
 }
+### Update task 
+PATCH  {{baseUrl}}/tasks/4d2a720d-5ed7-4a71-bd49-23f5aa1d8d3e
+Content-Type: {{contentType}}
+
+{
+   "title": "New Task Modified",
+  "description": "This is a new task descriotuib (modified)",
+  "status": "DONE"
+}
+
+### Delete task by ud
+DELETE {{baseUrl}}/tasks/29c9bedc-58e4-43fa-b435-76f5faa22b6e
+
