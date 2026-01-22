@@ -7,7 +7,7 @@
 GET {{baseUrl}}/tasks
 
 ### Get a task by ID
-GET {{baseUrl}}/tasks/13
+GET {{baseUrl}}/tasks/11cae179-7eca-42ee-a546-702e83a28d32
 
 ### Create a new task
 POST {{baseUrl}}/tasks
@@ -16,5 +16,13 @@ Content-Type: {{contentType}}
 {
   "title": "New Task",
   "description": "This is a new task created via API",
+  "status": "OPEN"
+}
+
+### Update task status
+Patch {{baseUrl}}/tasks/11cae179-7eca-42ee-a546-702e83a28d32/status
+Content-Type: {{contentType}}
+
+{
   "status": "OPEN"
 }

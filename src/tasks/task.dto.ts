@@ -14,3 +14,9 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   status: TaskStatus;
 }
+
+export class UpdateStatusDto {
+  @IsNotEmpty()
+  @IsEnum(TaskStatus)
+  status: TaskStatus;
+}

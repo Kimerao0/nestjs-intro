@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { CreateTaskDto } from 'src/tasks/create-task.dto';
+import { CreateTaskDto } from 'src/tasks/task.dto';
 import { ITask } from 'src/tasks/task.model';
 
 @Injectable()
