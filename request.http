@@ -46,3 +46,4 @@ Content-Type: {{contentType}}
 ### Delete task by ud
 DELETE {{baseUrl}}/tasks/{{taskId}}
 
+// docker compose up
