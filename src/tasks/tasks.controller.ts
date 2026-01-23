@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post, Put } from '@nestjs/common';
 import { CreateTaskDto, UpdateStatusDto, UpdateTaskDto } from 'src/tasks/task.dto';
 import { FindOneParams } from 'src/tasks/find-one-params';
 import { type ITask } from 'src/tasks/task.model';
 import { TasksService } from 'src/tasks/tasks.service';
+import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exception';
 
 @Controller('tasks')
 export class TasksController {
@@ -38,9 +39,16 @@ export class TasksController {
     return task;
   }
   @Patch('/:id')
-  public updateTask(@Param() params: FindOneParams, @Body() body: UpdateTaskDto) {
+  public updateTask(@Param() params: FindOneParams, @Body() body: UpdateTaskDto): ITask {
     const task = this.findOneOrFail(params.id);
-    return this.tasksService.updateTask(task, body);
+    try {
+      return this.tasksService.updateTask(task, body);
+    } catch (error) {
+      if (error instanceof WrongStatusException) {
+        throw new BadRequestException(error.message);
+      }
+      throw error;
+    }
   }
 
   @Delete('/:id')
