@@ -3,6 +3,9 @@
 @contentType= application/json 
 
 
+### Get the base url
+GET {{baseUrl}}
+
 ### Get the tasks
 GET {{baseUrl}}/tasks
 
