@@ -20,7 +20,7 @@ Content-Type: {{contentType}}
 {
   "title": "New Task nuovo",
   "description": "This is a new task created via API con id dynamic",
-  "status": "DONE"
+  "status": "OPEN"
 }
 
 ### Set the task id
