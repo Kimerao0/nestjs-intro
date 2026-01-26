@@ -10,6 +10,7 @@ import { appConfigSchema } from 'src/config/config.types';
 import { typeOrmConfig } from 'src/config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypedConfigService } from 'src/config/type-config.service';
+import { Task } from 'src/tasks/task.entity';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TypedConfigService } from 'src/config/type-config.service';
       inject: [ConfigService],
       useFactory: (configService: TypedConfigService) => ({
         ...configService.get('database'),
+        entities: [Task],
       }),
     }),
     ConfigModule.forRoot({
