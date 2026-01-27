@@ -18,9 +18,10 @@ POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-  "title": "New Task nuovo",
+  "title": "New Task 1",
   "description": "This is a new task created via API con id dynamic",
-  "status": "OPEN"
+  "status": "OPEN",
+  "userId": "eefdcb42-a2d6-4506-959d-a52698cbed19"
 }
 
 ### Set the task id

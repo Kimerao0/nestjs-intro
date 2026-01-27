@@ -1,5 +1,7 @@
+import { TaskLabel } from 'src/tasks/task-label.entity';
 import { TaskStatus } from 'src/tasks/task.model';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/user.entity';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Task {
@@ -25,4 +27,13 @@ export class Task {
     default: 'OPEN',
   })
   status: TaskStatus;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.tasks, { nullable: false })
+  user: User;
+
+  @OneToMany(() => TaskLabel, (task) => task.task)
+  labels: TaskLabel[];
 }
