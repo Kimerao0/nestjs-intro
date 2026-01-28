@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exception';
-import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/task.dto';
+import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/create-task.dto';
 import { Task } from 'src/tasks/task.entity';
 import { TaskStatus } from 'src/tasks/task.model';
 import { Repository } from 'typeorm';
@@ -21,8 +21,8 @@ export class TasksService {
     return await this.taskRepository.findOneBy({ id });
   }
 
-  public async createTask(createTskDto: CreateTaskDto): Promise<Task> {
-    return await this.taskRepository.save(createTskDto);
+  public async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return await this.taskRepository.save(createTaskDto);
   }
 
   private isValidStatusTransition(currentStatus: TaskStatus, newStatus: TaskStatus): boolean {

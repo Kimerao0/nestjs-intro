@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post } from '@nestjs/common';
-import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/task.dto';
+import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/create-task.dto';
 import { FindOneParams } from 'src/tasks/find-one-params';
 import { TasksService } from 'src/tasks/tasks.service';
 import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exception';
