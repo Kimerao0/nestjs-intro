@@ -10,7 +10,7 @@ GET {{baseUrl}}
 GET {{baseUrl}}/tasks
 
 ### Get a task by ID
-GET {{baseUrl}}/tasks/{{taskId}}
+GET {{baseUrl}}/tasks/dfac58ff-b297-4641-ae23-b3f262182572
 
 ### Create a new task
 # @name createTask
@@ -18,7 +18,7 @@ POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-  "title": "New Task with labels",
+  "title": "New Task with this is new",
   "description": "This is a new task created via API con id dynamic e labels",
   "status": "OPEN",
   "userId": "eefdcb42-a2d6-4506-959d-a52698cbed19",
@@ -37,14 +37,15 @@ PATCH  {{baseUrl}}/tasks/{{taskId}}/status
 Content-Type: {{contentType}}
 
 {
-  "status": "DONE"
+  "status": "DONE",
+  "labels": []
 }
 ### Update task 
 PATCH  {{baseUrl}}/tasks/{{taskId}}
 Content-Type: {{contentType}}
 
 {
-   "title": "New Task Modified",
+  "title": "New Task Modified",
   "description": "This is a new task descriotuib (modified)",
   "status": "OPEN"
 }
