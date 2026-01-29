@@ -26,13 +26,24 @@ export class TasksService {
   }
 
   public async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    if (createTaskDto.labels) {
+      createTaskDto.labels = this.getUniqueLabels(createTaskDto.labels);
+    }
     return await this.taskRepository.save(createTaskDto);
   }
 
   public async addLabels(task: Task, labelsDtos: CreateTaskLabelDto[]): Promise<Task> {
-    const labels = labelsDtos.map((label) => this.labelsRepository.create(label));
-    task.labels = [...task.labels, ...labels];
-    return await this.taskRepository.save(task);
+    const existingNames = new Set(task.labels.map((label) => label.name));
+
+    const labels = this.getUniqueLabels(labelsDtos)
+      .filter((dto) => !existingNames.has(dto.name))
+      .map((label) => this.labelsRepository.create(label));
+
+    if (labels.length) {
+      task.labels = [...task.labels, ...labels];
+      return await this.taskRepository.save(task);
+    }
+    return task;
   }
 
   private isValidStatusTransition(currentStatus: TaskStatus, newStatus: TaskStatus): boolean {
@@ -45,11 +56,21 @@ export class TasksService {
     if (updatingTask.status && !this.isValidStatusTransition(task.status, updatingTask.status)) {
       throw new WrongStatusException();
     }
+    if (updatingTask.labels) {
+      updatingTask.labels = this.getUniqueLabels(updatingTask.labels);
+    }
     Object.assign(task, updatingTask);
     return await this.taskRepository.save(task);
   }
 
   public async deleteTask(task: Task): Promise<void> {
     await this.taskRepository.delete(task);
+  }
+
+  private getUniqueLabels(labelDtos: CreateTaskLabelDto[]): CreateTaskLabelDto[] {
+    const uniqueNames = [...new Set(labelDtos.map((label) => label.name))];
+    return uniqueNames.map((name) => ({
+      name,
+    }));
   }
 }

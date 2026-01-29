@@ -53,4 +53,21 @@ Content-Type: {{contentType}}
 ### Delete task by ud
 DELETE {{baseUrl}}/tasks/{{taskId}}
 
+### Add labels to a task
+# @name addLabels
+POST {{baseUrl}}/tasks/8bbe3948-77d2-4521-91b6-6ee08becde8f/labels
+Content-Type: {{contentType}}
+
+[
+  {
+    "name": "new label 1"
+  },
+  {
+    "name": "new label 2"
+  },
+  {
+    "name": "new label 3"
+  }
+]
+
 // docker compose up
