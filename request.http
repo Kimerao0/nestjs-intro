@@ -51,7 +51,7 @@ Content-Type: {{contentType}}
 }
 
 ### Delete task by ud
-DELETE {{baseUrl}}/tasks/{{taskId}}
+DELETE {{baseUrl}}/tasks/f6bece4b-d23c-4f19-b0b8-891921cf02b5
 
 ### Add labels to a task
 # @name addLabels
@@ -60,14 +60,18 @@ Content-Type: {{contentType}}
 
 [
   {
-    "name": "new label 1"
+    "name": "new label 4"
   },
   {
-    "name": "new label 2"
-  },
-  {
-    "name": "new label 3"
+    "name": "new label 5"
   }
 ]
+
+### Remove labels to a task
+# @name removeLabels
+DELETE {{baseUrl}}/tasks/8bbe3948-77d2-4521-91b6-6ee08becde8f/labels
+Content-Type: {{contentType}}
+
+[ "new label 4", "new label 5"]
 
 // docker compose up
