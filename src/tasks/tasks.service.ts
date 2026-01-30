@@ -20,7 +20,21 @@ export class TasksService {
   ) {}
 
   public async findAll(filters: FindTaskParams, pagination: PaginationParams): Promise<[Task[], number]> {
-    const where: FindOptionsWhere<Task> = {};
+    const query = this.taskRepository.createQueryBuilder('task').leftJoinAndSelect('task.labels', 'labels');
+
+    if (filters.status) {
+      query.andWhere('task.status = :status', { status: filters.status });
+    }
+
+    if (filters.search?.trim()) {
+      query.andWhere('(task.title ILIKE :search OR task.description ILIKE :search)', { search: `%${filters.search}%` });
+    }
+
+    query.skip(pagination.offset).take(pagination.limit);
+
+    return query.getManyAndCount();
+
+    /*     const where: FindOptionsWhere<Task> = {};
     if (filters.status) {
       where.status = filters.status;
     }
@@ -35,7 +49,7 @@ export class TasksService {
       relations: ['labels'],
       skip: pagination.offset,
       take: pagination.limit,
-    });
+    }); */
   }
 
   public async findOne(id: string): Promise<Task | null> {
