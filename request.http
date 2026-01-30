@@ -6,8 +6,16 @@
 ### Get the base url
 GET {{baseUrl}}
 
-### Get the tasks
+### Get all the tasks
+# @name getAllTasks
 GET {{baseUrl}}/tasks
+
+### Get all the tasks in status progress
+# @name getAllInProgress
+GET {{baseUrl}}/tasks?status=IN_PROGRESS
+### Get all the tasks with search query
+# @name getAllWithSearch
+GET {{baseUrl}}/tasks?search=labels
 
 ### Get a task by ID
 GET {{baseUrl}}/tasks/dfac58ff-b297-4641-ae23-b3f262182572
@@ -18,13 +26,13 @@ POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-  "title": "New Task with this is new",
+  "title": "New Task with this is new 12",
   "description": "This is a new task created via API con id dynamic e labels",
   "status": "OPEN",
   "userId": "eefdcb42-a2d6-4506-959d-a52698cbed19",
   "labels": [
     {
-    "name": "urgent"
+    "name": "medium"
     }
   ]
 }

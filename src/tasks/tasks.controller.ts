@@ -1,10 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/create-task.dto';
 import { FindOneParams } from 'src/tasks/find-one-params';
 import { TasksService } from 'src/tasks/tasks.service';
 import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exception';
 import { Task } from 'src/tasks/task.entity';
 import { CreateTaskLabelDto } from 'src/tasks/create-task-label-dto';
+import { FindTaskParams } from 'src/tasks/find-task.params';
+import { PaginationParams } from 'src/common/pagination.params';
+import { PaginationResponse } from 'src/common/pagination.response';
 
 @Controller('tasks')
 export class TasksController {
@@ -19,8 +22,16 @@ export class TasksController {
   }
 
   @Get()
-  public async findAll(): Promise<Task[]> {
-    return await this.tasksService.findAll();
+  public async findAll(@Query() filters: FindTaskParams, @Query() pagination: PaginationParams): Promise<PaginationResponse<Task>> {
+    const [items, total] = await this.tasksService.findAll(filters, pagination);
+    return {
+      data: items,
+      meta: {
+        total,
+        offset: pagination.offset,
+        limit: pagination.limit,
+      },
+    };
   }
 
   @Get('/:id')

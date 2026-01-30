@@ -4,9 +4,11 @@ import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exc
 import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/create-task.dto';
 import { Task } from 'src/tasks/task.entity';
 import { TaskStatus } from 'src/tasks/task.model';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Like, Repository } from 'typeorm';
 import { CreateTaskLabelDto } from 'src/tasks/create-task-label-dto';
 import { TaskLabel } from 'src/tasks/task-label.entity';
+import { FindTaskParams } from 'src/tasks/find-task.params';
+import { PaginationParams } from 'src/common/pagination.params';
 
 @Injectable()
 export class TasksService {
@@ -17,8 +19,23 @@ export class TasksService {
     private readonly labelsRepository: Repository<TaskLabel>,
   ) {}
 
-  public async findAll(): Promise<Task[]> {
-    return await this.taskRepository.find();
+  public async findAll(filters: FindTaskParams, pagination: PaginationParams): Promise<[Task[], number]> {
+    const where: FindOptionsWhere<Task> = {};
+    if (filters.status) {
+      where.status = filters.status;
+    }
+
+    if (filters.search?.trim()) {
+      where.title = Like(`%${filters.search}%`);
+      where.description = Like(`%${filters.search}%`);
+    }
+
+    return await this.taskRepository.findAndCount({
+      where,
+      relations: ['labels'],
+      skip: pagination.offset,
+      take: pagination.limit,
+    });
   }
 
   public async findOne(id: string): Promise<Task | null> {
