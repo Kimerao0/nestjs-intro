@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthConfig } from 'src/config/auth.config';
@@ -10,6 +10,7 @@ import { User } from 'src/users/user.entity';
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: TypedConfigService) =>
         ({

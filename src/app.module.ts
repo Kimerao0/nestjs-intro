@@ -14,6 +14,7 @@ import { Task } from 'src/tasks/task.entity';
 import { User } from 'src/users/user.entity';
 import { TaskLabel } from 'src/tasks/task-label.entity';
 import { authConfig } from 'src/config/auth.config';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { authConfig } from 'src/config/auth.config';
       },
     }),
     TasksModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
