@@ -4,7 +4,7 @@ import { WrongStatusException } from 'src/tasks/exceptions/wrong-task-status.exc
 import { CreateTaskDto, UpdateTaskDto } from 'src/tasks/create-task.dto';
 import { Task } from 'src/tasks/task.entity';
 import { TaskStatus } from 'src/tasks/task.model';
-import { FindOptionsWhere, Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateTaskLabelDto } from 'src/tasks/create-task-label-dto';
 import { TaskLabel } from 'src/tasks/task-label.entity';
 import { FindTaskParams } from 'src/tasks/find-task.params';

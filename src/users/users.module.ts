@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthConfig } from 'src/config/auth.config';
 import { TypedConfigService } from 'src/config/type-config.service';
 import { User } from 'src/users/user.entity';
+import { UserService } from './user/user.service';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [
@@ -21,5 +23,6 @@ import { User } from 'src/users/user.entity';
         }) as JwtModuleOptions,
     }),
   ],
+  providers: [UserService, AuthService],
 })
 export class UsersModule {}
