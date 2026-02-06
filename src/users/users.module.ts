@@ -7,6 +7,7 @@ import { TypedConfigService } from 'src/config/type-config.service';
 import { User } from 'src/users/user.entity';
 import { UserService } from './user/user.service';
 import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -24,5 +25,6 @@ import { AuthService } from './auth/auth.service';
     }),
   ],
   providers: [UserService, AuthService],
+  controllers: [AuthController],
 })
 export class UsersModule {}

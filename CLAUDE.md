@@ -167,3 +167,7 @@ docker-compose up -d
 - Hardcoding private constants in tests (e.g., `10`) unless exported.
 - Excessive mocking that recreates implementation details.
 - Using Nest `TestingModule` when the class is a plain TypeScript object.
+
+### Methods
+
+- Always write public method explicitly as public
