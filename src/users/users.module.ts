@@ -8,6 +8,8 @@ import { User } from 'src/users/user.entity';
 import { UserService } from './user/user.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
+import { PasswordService } from 'src/users/password/password.service';
+import { AuthGuard } from 'src/users/auth.guard';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { AuthController } from './auth/auth.controller';
         }) as JwtModuleOptions,
     }),
   ],
-  providers: [UserService, AuthService],
+  providers: [UserService, AuthService, PasswordService, AuthGuard],
   controllers: [AuthController],
 })
 export class UsersModule {}
