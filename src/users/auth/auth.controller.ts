@@ -3,6 +3,7 @@ import { type AuthRequest } from 'src/users/auth/auth.request';
 import { AuthResponse } from 'src/users/auth/auth.response';
 import { AuthService } from 'src/users/auth/auth.service';
 import { CreateUserDto } from 'src/users/create-user.dto';
+import { PublicRoute } from 'src/users/decorators/public.decorator';
 import { LoginDto } from 'src/users/login.dto';
 import { LoginResponse } from 'src/users/login.response';
 import { User } from 'src/users/user.entity';
@@ -18,11 +19,13 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @PublicRoute()
   public async register(@Body() createUserDto: CreateUserDto): Promise<AuthResponse> {
     return await this.authService.register(createUserDto);
   }
 
   @Post('login')
+  @PublicRoute()
   public async login(@Body() loginDto: LoginDto): Promise<LoginResponse> {
     const accessToken = await this.authService.login(loginDto.email, loginDto.password);
     return new LoginResponse({ accessToken });
