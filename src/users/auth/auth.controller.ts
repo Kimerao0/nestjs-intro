@@ -1,11 +1,14 @@
-import { Body, ClassSerializerInterceptor, Controller, NotFoundException, Post, SerializeOptions, UseInterceptors, Request } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, NotFoundException, Post, SerializeOptions, UseInterceptors, Request, Get } from '@nestjs/common';
+import { AdminResponse } from 'src/users/admin.response';
 import { type AuthRequest } from 'src/users/auth/auth.request';
 import { AuthResponse } from 'src/users/auth/auth.response';
 import { AuthService } from 'src/users/auth/auth.service';
 import { CreateUserDto } from 'src/users/create-user.dto';
 import { PublicRoute } from 'src/users/decorators/public.decorator';
+import { Roles } from 'src/users/decorators/roles.decorator';
 import { LoginDto } from 'src/users/login.dto';
 import { LoginResponse } from 'src/users/login.response';
+import { Role } from 'src/users/role.enum';
 import { User } from 'src/users/user.entity';
 import { UserService } from 'src/users/user/user.service';
 
@@ -39,5 +42,11 @@ export class AuthController {
       throw new NotFoundException();
     }
     return user;
+  }
+
+  @Get('admin')
+  @Roles(Role.ADMIN, Role.USER)
+  async adminOnly(): Promise<AdminResponse> {
+    return new AdminResponse({ message: 'This content is for admin only.' });
   }
 }
